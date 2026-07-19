@@ -29,38 +29,55 @@ function clone(user: User): User {
   return { ...user }
 }
 
-export const userApi = {
-  async list(signal?: AbortSignal) {
-    await wait(signal)
-    return users.map(clone)
-  },
-  async get(id: string, signal?: AbortSignal) {
-    await wait(signal)
-    const user = users.find((candidate) => candidate.id === id)
-    return user ? clone(user) : undefined
-  },
-  async create(input: UserInput) {
-    await wait()
-    const user: User = {
-      ...input,
-      id: crypto.randomUUID(),
-      updatedAt: new Date().toISOString(),
-    }
-    users = [user, ...users]
-    return clone(user)
-  },
-  async update(id: string, input: UserInput) {
-    await wait()
-    const index = users.findIndex((candidate) => candidate.id === id)
-    if (index === -1) return undefined
-    const user = { ...users[index], ...input, updatedAt: new Date().toISOString() }
-    users = users.with(index, user)
-    return clone(user)
-  },
-  async remove(id: string) {
-    await wait()
-    const exists = users.some((candidate) => candidate.id === id)
-    users = users.filter((candidate) => candidate.id !== id)
-    return exists
-  },
+function authorize(accessToken: string) {
+  if (!accessToken.startsWith('demo.')) throw new Response('Unauthorized', { status: 401 })
+}
+function authorizeWrite(accessToken: string, groups: string[]) {
+  authorize(accessToken)
+  if (!groups.includes('Admins')) throw new Response('この操作を行う権限がありません。', { status: 403 })
+}
+
+type ApiAuth = { accessToken: string; groups: string[] }
+
+export function createUserApi(auth: ApiAuth) {
+  return {
+    async list(signal?: AbortSignal) {
+      authorize(auth.accessToken)
+      await wait(signal)
+      return users.map(clone)
+    },
+    async get(id: string, signal?: AbortSignal) {
+      authorize(auth.accessToken)
+      await wait(signal)
+      const user = users.find((candidate) => candidate.id === id)
+      return user ? clone(user) : undefined
+    },
+    async create(input: UserInput) {
+      authorizeWrite(auth.accessToken, auth.groups)
+      await wait()
+      const user: User = {
+        ...input,
+        id: crypto.randomUUID(),
+        updatedAt: new Date().toISOString(),
+      }
+      users = [user, ...users]
+      return clone(user)
+    },
+    async update(id: string, input: UserInput) {
+      authorizeWrite(auth.accessToken, auth.groups)
+      await wait()
+      const index = users.findIndex((candidate) => candidate.id === id)
+      if (index === -1) return undefined
+      const user = { ...users[index], ...input, updatedAt: new Date().toISOString() }
+      users = users.with(index, user)
+      return clone(user)
+    },
+    async remove(id: string) {
+      authorizeWrite(auth.accessToken, auth.groups)
+      await wait()
+      const exists = users.some((candidate) => candidate.id === id)
+      users = users.filter((candidate) => candidate.id !== id)
+      return exists
+    },
+  }
 }

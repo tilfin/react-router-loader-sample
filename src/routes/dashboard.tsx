@@ -1,8 +1,8 @@
 import { Link, useLoaderData } from 'react-router-dom'
-import { userApi } from '../data/users'
+import { authenticatedApi } from '../data/api'
 
 export async function dashboardLoader({ request }: { request: Request }) {
-  const users = await userApi.list(request.signal)
+  const users = await authenticatedApi(request).users.list(request.signal)
   return { userCount: users.length, loadedAt: new Date().toLocaleTimeString('ja-JP') }
 }
 
