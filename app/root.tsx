@@ -1,8 +1,8 @@
-import type { ReactNode } from 'react'
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
-import stylesheet from '../src/styles.css?url'
+import type { ReactNode } from "react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import stylesheet from "../src/styles.css?url";
 
-export const links = () => [{ rel: 'stylesheet', href: stylesheet }]
+export const links = () => [{ rel: "stylesheet", href: stylesheet }];
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
@@ -19,9 +19,9 @@ export function Layout({ children }: { children: ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
 
 export default function App() {
-  return <Outlet />
+  return <Outlet />;
 }

@@ -1,13 +1,17 @@
-import { useNavigation } from 'react-router'
+import { useNavigation } from "react-router";
 
 type SubmitButtonProps = {
-  children: string
-  form?: string
-}
+  children: string;
+  form?: string;
+};
 
 export function SubmitButton({ children, form }: SubmitButtonProps) {
-  const navigation = useNavigation()
-  const busy = navigation.state === 'submitting'
+  const navigation = useNavigation();
+  const busy = navigation.state === "submitting";
 
-  return <button className="button" disabled={busy} form={form}>{busy ? 'Saving…' : children}</button>
+  return (
+    <button className="button" disabled={busy} form={form}>
+      {busy ? "Saving…" : children}
+    </button>
+  );
 }
