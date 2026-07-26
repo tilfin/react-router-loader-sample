@@ -1,2 +1,5 @@
-node_modules/
+.pnpm-store/
+.react-router/
+build/
 dist/
+node_modules/

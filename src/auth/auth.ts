@@ -1,4 +1,4 @@
-import { redirect } from 'react-router-dom'
+import { redirect } from 'react-router'
 
 export type AuthUser = { sub: string; email: string; name: string; groups: string[] }
 type Session = { accessToken: string; expiresAt: number; user: AuthUser }

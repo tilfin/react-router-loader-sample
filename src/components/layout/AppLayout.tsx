@@ -1,4 +1,4 @@
-import { Form, NavLink, Outlet, useLoaderData, useNavigation, useRevalidator } from 'react-router-dom'
+import { Form, NavLink, Outlet, useLoaderData, useNavigation, useRevalidator } from 'react-router'
 import type { AuthUser } from '../../auth/auth'
 
 export function AppLayout() {

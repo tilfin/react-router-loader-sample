@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, redirect } from 'react-router'
 import { AppLayout } from './components/layout/AppLayout'
 import { RouteError } from './components/layout/RouteError'
 import { requireSession, signOut } from './auth/auth'

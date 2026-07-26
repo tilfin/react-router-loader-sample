@@ -1,12 +1,14 @@
-# React Router Loader + CRUD サンプル
+# React Router Framework Mode + CRUD サンプル
 
-React Router の Data Mode で、画面遷移時の `loader` とフォーム送信時の `action` を確認するミニアプリです。外部 API には依存せず、ブラウザ内のインメモリ API が約 550ms の待機を再現します。
+React Router の Framework Mode（SPA）で、画面遷移時の `loader` とフォーム送信時の `action` を確認するミニアプリです。外部 API には依存せず、ブラウザ内のインメモリ API が約 550ms の待機を再現します。
+
+React Router 8 と TypeScript 7 を使用しています。
 
 認証もブラウザ内で擬似実装しています。`admin@example.com`（編集可能）と `viewer@example.com`（閲覧のみ）をログイン画面から選べます。セッションはタブ単位・30分で失効します。
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## 試せること
@@ -30,8 +32,10 @@ npm run dev
 - `src/data/users.ts`: 遅延と CRUD を再現するインメモリ API
 - `src/routes/dashboard.tsx`: ダッシュボードの loader
 - `src/routes/users.tsx`: 一覧・詳細の loader と CRUD action
-- `src/main.tsx`: ネストしたルート定義と遷移状態の可視化
+- `app/routes.ts`: Framework Mode のルート設定
+- `app/routes/`: URL ごとの route module
+- `src/components/layout/AppLayout.tsx`: レイアウトと遷移状態の可視化
 
 ## TypeScript 7
 
-`typescript` は 7.0.2 を使用しています。`tsconfig` は `strict`、`verbatimModuleSyntax`、`moduleResolution: "Bundler"` を有効にし、TypeScript 7 のネイティブ `tsc` で型チェックできます。
+`typescript` は 7.0.2 を使用しています。`pnpm typecheck` で route typegen と TypeScript の型チェックを実行できます。

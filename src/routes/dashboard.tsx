@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router'
 import { authenticatedApi } from '../data/api'
 
 export async function dashboardLoader({ request }: { request: Request }) {
@@ -10,7 +10,7 @@ export function DashboardPage() {
   const data = useLoaderData() as Awaited<ReturnType<typeof dashboardLoader>>
   return (
     <main className="page">
-      <p className="eyebrow">React Router data mode</p>
+      <p className="eyebrow">React Router framework mode</p>
       <h1>画面ごとに、必要なデータを先に読み込む</h1>
       <p className="lead">ナビゲーションの状態と各ルートの loader を見ながら、ユーザー管理の CRUD を試せます。</p>
       <section className="hero-grid">

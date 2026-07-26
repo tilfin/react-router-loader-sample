@@ -1,4 +1,4 @@
-import { Form, redirect, useActionData, useSearchParams } from 'react-router-dom'
+import { Form, redirect, useActionData, useSearchParams } from 'react-router'
 import { getSession, safeReturnTo, signIn } from '../auth/auth'
 
 export function loginLoader() { if (getSession()) throw redirect('/'); return null }

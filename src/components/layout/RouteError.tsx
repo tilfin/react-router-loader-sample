@@ -1,4 +1,4 @@
-import { Form, isRouteErrorResponse, useRouteError } from 'react-router-dom'
+import { Form, isRouteErrorResponse, useRouteError } from 'react-router'
 
 export function RouteError() {
   const error = useRouteError()
